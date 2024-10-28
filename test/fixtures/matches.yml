@@ -1,0 +1,27 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  round: MyString
+  date: 2024-10-28
+  time: MyString
+  team1: one
+  team2: one
+  league: one
+  season: one
+  ht_team1: 1
+  ht_team2: 1
+  ft_team1: 1
+  ft_team2: 1
+
+two:
+  round: MyString
+  date: 2024-10-28
+  time: MyString
+  team1: two
+  team2: two
+  league: two
+  season: two
+  ht_team1: 1
+  ht_team2: 1
+  ft_team1: 1
+  ft_team2: 1

@@ -1,7 +1,13 @@
 Rails.application.routes.draw do
-  resources :countries, only: [ :show ] do
-    resources :leagues, only: [ :show ] do
-      resources :seasons, only: [ :show ] do
+  get "teams/index"
+  get "teams/show"
+  get "seasons/index"
+  get "seasons/show"
+  get "leagues/index"
+  get "leagues/show"
+  resources :countries, only: [ :index, :show ] do
+    resources :leagues, only: [ :index, :show ] do
+      resources :seasons, only: [ :index, :show ] do
         resources :matches, only: [ :index, :show ]
       end
     end

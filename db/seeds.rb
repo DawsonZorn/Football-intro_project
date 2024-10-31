@@ -39,8 +39,8 @@ def fetch_and_seed_league_data
 
       # Seed matches and clubs if they dont already exist
       data['matches'].each do |match_data|
-        team1 = Club.find_or_create_by(name: match_data['team1'])
-        team2 = Club.find_or_create_by(name: match_data['team2'])
+        team1 = Team.find_or_create_by(name: match_data['team1'])
+        team2 = Team.find_or_create_by(name: match_data['team2'])
 
         Match.create(
           round: match_data['round'],

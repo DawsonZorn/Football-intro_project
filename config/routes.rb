@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   root "home#index"  # Set the root route
   resources :leagues, only: [ :index, :show ] do
     resources :seasons, only: [ :show ] do
-      resources :matches, only: [ :index, :show ]
+      resources :matches, only: [ :index ]
     end
   end
   resources :teams, only: [ :index, :show ]

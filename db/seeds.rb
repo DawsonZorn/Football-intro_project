@@ -7,57 +7,42 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
-require 'httparty'
+require "faker"
 
-BASE_URL = "https://raw.githubusercontent.com/openfootball/football.json/master"
+# URL for the specific season data
+url = 'https://raw.githubusercontent.com/openfootball/football.json/master/2013-14/en.1.json'
 
-# Fetch and store data in the database
-def fetch_and_seed_league_data
-  league_codes = [ 'en.1', 'en.2', 'en.3', 'en.4', 'at.1', 'at.2', 'de.1', 'cl' ] # league codes for division names
-  year_ranges = (2010..2024).to_a # range of seasons
-  league_codes.each do |league_code|
-    year_ranges.each do |year|
-      # Construct the URL for each league and year combination
-      url = "#{BASE_URL}/#{year}-#{(year + 1) % 100}/#{league_code}.json"
+# Fetch the data
+response = HTTParty.get(url)
 
-      # Try to retrieve data
-      response = HTTParty.get(url)
-      next unless response.success? # Skip if the data isn't available
+# Check if the response was successful
+if response.success?
+  data = JSON.parse(response.body)
 
-      data = response.parsed_response
+  # Assuming the structure of the JSON, adapt accordingly
+  league_name = data['name'] # Get league name
+  league = League.find_or_create_by(name: league_name)
 
-      # Find or create league
-      if data['name'] && data['country']
-        league = League.find_or_create_by(name: data['name'], code: league_code, country: data['country'])
+  # Loop through each round in the rounds array
+  data['rounds'].each do |round|
+    round_name = round['name']
 
-         # Match year format in name if it exists
-         season_year_match = data['name'].match(/\d{4}\/\d{2}/)
-         next unless season_year_match # Skip if no year format is found
+    # You might want to create a Round model if you haven't done so
+    round_record = league.rounds.find_or_create_by(name: round_name)
 
-         season_year = season_year_match[0]
-         season = league.seasons.find_or_create_by(year: season_year)
-
-      # Seed matches and clubs if they dont already exist
-      data['matches'].each do |match_data|
-        team1 = Team.find_or_create_by(name: match_data['team1'])
-        team2 = Team.find_or_create_by(name: match_data['team2'])
-
-        Match.create(
-          round: match_data['round'],
-          date: match_data['date'],
-          time: match_data['time'],
-          team1: team1,
-          team2: team2,
-          league: league,
-          season: season,
-          ht_team1: match_data.dig('score', 'ht', 0),
-          ht_team2: match_data.dig('score', 'ht', 1),
-          ft_team1: match_data.dig('score', 'ft', 0),
-          ft_team2: match_data.dig('score', 'ft', 1)
-        )
-      end
-      end
+    # Loop through each match in the matches array
+    round['matches'].each do |match|
+      # Create or update match records based on the structure
+      match_record = round_record.matches.find_or_create_by(
+        date: match['date'],
+        team1: match['team1'],
+        team2: match['team2'],
+        score: match['score']['ft'] # Adjust if needed
+      )
+    end
   end
+
+  puts "Successfully seeded league and matches from #{url}."
+else
+  puts "Failed to fetch data from #{url}: #{response.code}"
 end
-end
-fetch_and_seed_league_data

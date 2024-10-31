@@ -11,11 +11,5 @@
 
 <div>
   <h2>Leagues</h2>
-  <ul>
-    <% League.all.each do |league| %>
-      <li>
-        <%= link_to league.name, league_path(league) %>
-      </li>
-    <% end %>
-  </ul>
+  <%= link_to "View All Leagues", leagues_path %>
 </div>

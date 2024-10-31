@@ -1,5 +1,14 @@
 <h1>Players</h1>
 
+<ul>
+  <li>
+    <%= link_to 'About', about_path %>
+  </li>
+  <li>
+    <%= link_to 'Home', root_path %>
+  </li>
+</ul>
+
 <%= form_with(url: search_players_path, method: :get, local: true) do %>
   <%= label_tag :query, "Search Players:" %>
   <%= text_field_tag :query, params[:query] %>
@@ -11,17 +20,19 @@
     <li>
       <%= link_to player.name, player_path(player) %> -
       Position: <%= player.position.name %>,
-      Team: <%= player.team.name %>,
-      Coach: <%= player.coach.name if player.coach %>
+      Team: <%= player.team.name %> <%= link_to 'View Team', team_path(player.team) %>,
+      Coach: <%= player.coach.name if player.coach %> <%= link_to 'View Coach', coach_path(player.coach)%>
+      <% if player.competitions.any? %>
+        <br>Competitions:
+        <ul>
+          <% player.competitions.each do |competition| %>
+            <li><%= competition.name %></li>
+          <% end %>
+        </ul>
+      <% else %>
+        <br>No Competitions Found
+      <% end %>
     </li>
   <% end %>
 </ul>
 
-<ul>
-  <li>
-    <%= link_to 'About', about_path %>
-  </li>
-  <li>
-    <%= link_to 'Home', root_path %>
-  </li>
-</ul>

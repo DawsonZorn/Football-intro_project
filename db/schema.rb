@@ -10,15 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_10_31_132550) do
+ActiveRecord::Schema[7.2].define(version: 2024_10_31_135239) do
   create_table "coaches", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "name"
+    t.integer "team_id", null: false
+    t.index ["team_id"], name: "index_coaches_on_team_id"
   end
 
   create_table "competitions", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "name"
   end
 
   create_table "competitions_teams", id: false, force: :cascade do |t|
@@ -26,60 +30,32 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_31_132550) do
     t.integer "competition_id", null: false
   end
 
-  create_table "leagues", force: :cascade do |t|
-    t.string "name"
-    t.integer "season_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "code"
-    t.string "country"
-    t.index ["season_id"], name: "index_leagues_on_season_id"
-  end
-
-  create_table "matches", force: :cascade do |t|
-    t.string "round"
-    t.date "date"
-    t.string "time"
-    t.integer "team1_id", null: false
-    t.integer "team2_id", null: false
-    t.integer "league_id", null: false
-    t.integer "season_id", null: false
-    t.integer "ht_team1"
-    t.integer "ht_team2"
-    t.integer "ft_team1"
-    t.integer "ft_team2"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["league_id"], name: "index_matches_on_league_id"
-    t.index ["season_id"], name: "index_matches_on_season_id"
-    t.index ["team1_id"], name: "index_matches_on_team1_id"
-    t.index ["team2_id"], name: "index_matches_on_team2_id"
-  end
-
   create_table "players", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "team_id", null: false
+    t.integer "position_id", null: false
+    t.string "name"
+    t.integer "coach_id", null: false
+    t.index ["coach_id"], name: "index_players_on_coach_id"
+    t.index ["position_id"], name: "index_players_on_position_id"
+    t.index ["team_id"], name: "index_players_on_team_id"
   end
 
   create_table "positions", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "seasons", force: :cascade do |t|
-    t.string "year"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string "name"
   end
 
   create_table "teams", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "name"
   end
 
-  add_foreign_key "leagues", "seasons"
-  add_foreign_key "matches", "leagues"
-  add_foreign_key "matches", "seasons"
-  add_foreign_key "matches", "team1s"
-  add_foreign_key "matches", "team2s"
+  add_foreign_key "coaches", "teams"
+  add_foreign_key "players", "coaches"
+  add_foreign_key "players", "positions"
+  add_foreign_key "players", "teams"
 end

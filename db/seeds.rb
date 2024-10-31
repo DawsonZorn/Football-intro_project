@@ -9,40 +9,46 @@
 #   end
 require "faker"
 
-# URL for the specific season data
-url = 'https://raw.githubusercontent.com/openfootball/football.json/master/2013-14/en.1.json'
 
-# Fetch the data
-response = HTTParty.get(url)
+# Clear existing records
+Team.destroy_all
+Player.destroy_all
+Coach.destroy_all
+Competition.destroy_all
+Position.destroy_all
 
-# Check if the response was successful
-if response.success?
-  data = JSON.parse(response.body)
+# Create positions
+positions = []
+5.times do
+  positions << Position.create(name: Faker::Sports::Football.position)
+end
 
-  # Assuming the structure of the JSON, adapt accordingly
-  league_name = data['name'] # Get league name
-  league = League.find_or_create_by(name: league_name)
+# Create competitions
+competitions = []
+5.times do
+  competitions << Competition.create(name: Faker::Sports::Football.competition)
+end
 
-  # Loop through each round in the rounds array
-  data['rounds'].each do |round|
-    round_name = round['name']
+# Create teams and their associated coaches and players
+teams = []
+50.times do
+  team_name = Faker::Sports::Football.team
+  team = Team.create(name: team_name)
 
-    # You might want to create a Round model if you haven't done so
-    round_record = league.rounds.find_or_create_by(name: round_name)
+  # Create a unique coach for each team
+  coach_name = Faker::Sports::Football.coach
+  coach = Coach.create(name: coach_name, team: team)
 
-    # Loop through each match in the matches array
-    round['matches'].each do |match|
-      # Create or update match records based on the structure
-      match_record = round_record.matches.find_or_create_by(
-        date: match['date'],
-        team1: match['team1'],
-        team2: match['team2'],
-        score: match['score']['ft'] # Adjust if needed
-      )
-    end
+  # Create unique players for the team
+  5.times do
+    player_name = Faker::Sports::Football.player
+    position = positions.sample # Pick a random position
+
+    # Create the player and associate with the team and position
+    Player.create(name: player_name, team: team, position: position, coach_id: coach.id) # Set coach_id directly here
   end
 
-  puts "Successfully seeded league and matches from #{url}."
-else
-  puts "Failed to fetch data from #{url}: #{response.code}"
+  teams << team
 end
+
+puts "#{teams.size} teams created!"

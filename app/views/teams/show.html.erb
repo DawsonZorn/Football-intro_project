@@ -1,2 +1,16 @@
-<h1>Teams#show</h1>
-<p>Find me in app/views/teams/show.html.erb</p>
+<h1><%= @team.name %></h1>
+
+<p>Coach: <%= @team.coach.name %></p>
+<h2>Players:</h2>
+<ul>
+  <% @team.players.each do |player| %>
+    <li><%= player.name %> (Position: <%= player.position.name %>)</li>
+  <% end %>
+</ul>
+
+<h2>Competitions:</h2>
+<ul>
+  <% @team.competitions.each do |competition| %>
+    <li><%= competition.name %></li>
+  <% end %>
+</ul>

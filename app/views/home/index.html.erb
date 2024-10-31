@@ -1,15 +1,16 @@
-<h1>Football Matches</h1>
+<h1>Welcome to the Football App</h1>
 
-<div>
-  <h2>Search Teams</h2>
-  <%= form_with url: teams_path, method: :get, local: true do %>
-    <%= label_tag :query, "Search for a team:" %>
-    <%= text_field_tag :query, params[:query] %>
-    <%= submit_tag "Search" %>
-  <% end %>
-</div>
+<%= form_with(url: search_path, method: :get, local: true) do %>
+  <%= label_tag :query, "Search Players:" %>
+  <%= text_field_tag :query, params[:query] %>
+  <%= submit_tag "Search" %>
+<% end %>
 
-<div>
-  <h2>Leagues</h2>
-  <%= link_to "View All Leagues", leagues_path %>
-</div>
+<h2>Navigation</h2>
+<ul>
+  <li><%= link_to 'Players', players_path %></li>
+  <li><%= link_to 'Teams', teams_path %></li>
+  <li><%= link_to 'Coaches', coaches_path %></li>
+  <li><%= link_to 'Competitions', competitions_path %></li>
+  <li><%= link_to 'Positions', positions_path %></li>
+</ul>

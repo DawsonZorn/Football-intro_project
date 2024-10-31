@@ -1,2 +1,10 @@
-<h1>Coaches#index</h1>
-<p>Find me in app/views/coaches/index.html.erb</p>
+<h1>Coaches</h1>
+
+<ul>
+  <% @coaches.each do |coach| %>
+    <li>
+      <%= link_to coach.name, coach_path(coach) %>
+      - Team: <%= coach.team.name %>
+    </li>
+  <% end %>
+</ul>

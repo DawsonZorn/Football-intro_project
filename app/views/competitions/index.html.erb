@@ -1,2 +1,9 @@
-<h1>Competitions#index</h1>
-<p>Find me in app/views/competitions/index.html.erb</p>
+<h1>Competitions</h1>
+
+<ul>
+  <% @competitions.each do |competition| %>
+    <li>
+      <%= link_to competition.name, competition_path(competition) %>
+    </li>
+  <% end %>
+</ul>

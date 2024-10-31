@@ -1,9 +1,7 @@
 class PlayersController < ApplicationController
-  def index
     def index
       @players = Player.includes(:team, :position, :coach).all
     end
-  end
 
   def show
     @player = Player.find(params[:id])
@@ -11,13 +9,11 @@ class PlayersController < ApplicationController
 
   def search
     if params[:query].present?
-      @players = Player.joins(:team, :coach)
-                       .where("players.name LIKE ?", "%#{params[:query]}%")
-                       .or(Player.joins(:team, :coach).where("teams.name LIKE ?", "%#{params[:query]}%"))
-                       .includes(:team, :position, :coach)
+      @players = Player.includes(:position, :team, :coach)
+                        .where("players.name LIKE ?", "%#{params[:query]}%")
     else
-      @players = Player.includes(:team, :position, :coach).all
+      @players = Player.includes(:position, :team, :coach).all
     end
-    render :index
+    render :index # Render the index view after searching
   end
 end

@@ -1,2 +1,0 @@
-https://github.com/openfootball/football.json/blob/master/2024-25/en.1.json for api
-https://github.com/faker-ruby/faker/blob/main/doc/sports/football.md for faker football data

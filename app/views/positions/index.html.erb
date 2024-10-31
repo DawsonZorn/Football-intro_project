@@ -1,2 +1,9 @@
-<h1>Positions#index</h1>
-<p>Find me in app/views/positions/index.html.erb</p>
+<h1>Positions</h1>
+
+<ul>
+  <% @positions.each do |position| %>
+    <li>
+      <%= link_to position.name, position_path(position) %>
+    </li>
+  <% end %>
+</ul>

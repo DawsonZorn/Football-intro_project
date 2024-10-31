@@ -1,4 +1,8 @@
-<h1>Welcome to the Football App</h1>
+
+<div class="d-flex align-items-center"> <!-- wraps title and image in a div so img sits next to title and add margin so not against top border -->
+  <h1 class="me-3">Welcome to my Football App</h1>
+  <%= image_tag "football.png", size: "150x150", class: "img-fluid mt-3", alt: "Football"%>
+</div>
 
 <%= form_with(url: search_players_path, method: :get, local: true) do %>
   <%= label_tag :query, "Search Players:" %>

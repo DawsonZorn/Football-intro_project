@@ -10,12 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_10_28_230932) do
+ActiveRecord::Schema[7.2].define(version: 2024_10_31_045657) do
   create_table "leagues", force: :cascade do |t|
     t.string "name"
     t.integer "season_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "code"
+    t.string "country"
     t.index ["season_id"], name: "index_leagues_on_season_id"
   end
 

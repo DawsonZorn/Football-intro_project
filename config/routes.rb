@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
-  resources :leagues do #defines a route for each division and adds the search functionality
-    resources :seasons, only: [:show]
+  resources :leagues do # defines a route for each division and adds the search functionality
+    resources :seasons, only: [ :show ]
     collection do
-      get 'search'
+      get "search"
     end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -16,4 +16,5 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+end
 end

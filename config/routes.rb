@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get "about/index"
   root "home#index"
   resources :players do
     collection do
@@ -9,6 +10,8 @@ Rails.application.routes.draw do
   resources :coaches
   resources :competitions
   resources :positions
+
+  get "about", to: "about#index"
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

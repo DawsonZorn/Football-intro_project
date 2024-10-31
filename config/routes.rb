@@ -1,21 +1,14 @@
 Rails.application.routes.draw do
-  get "home/index"
-  get "teams/index"
-  get "teams/show"
-  get "seasons/index"
-  get "seasons/show"
-  get "leagues/index"
-  get "leagues/show"
-  root "home#index"  # Set the root route
-  resources :leagues, only: [ :index, :show ] do
-    resources :seasons, only: [ :show ] do
-      resources :matches, only: [ :index ]
-    end
-  end
+  root "home#index" # Assuming you have a home controller
+
+  resources :players, only: [ :index, :show ]
   resources :teams, only: [ :index, :show ]
+  resources :coaches, only: [ :index, :show ]
+  resources :competitions, only: [ :index, :show ]
+  resources :positions, only: [ :index, :show ]
 
-
-  get "/search", to: "matches#search", as: "search_matches"
+  # Add search route
+  get "search", to: "players#search"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

@@ -1,17 +1,19 @@
 Rails.application.routes.draw do
+  get "home/index"
   get "teams/index"
   get "teams/show"
   get "seasons/index"
   get "seasons/show"
   get "leagues/index"
   get "leagues/show"
-  resources :countries, only: [ :index, :show ] do
-    resources :leagues, only: [ :index, :show ] do
-      resources :seasons, only: [ :index, :show ] do
-        resources :matches, only: [ :index, :show ]
-      end
+  root "home#index"  # Set the root route
+  resources :leagues, only: [ :index, :show ] do
+    resources :seasons, only: [ :show ] do
+      resources :matches, only: [ :index, :show ]
     end
   end
+  resources :teams, only: [ :index, :show ]
+
 
   get "/search", to: "matches#search", as: "search_matches"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

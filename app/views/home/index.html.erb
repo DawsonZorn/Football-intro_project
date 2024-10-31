@@ -1,0 +1,21 @@
+<h1>Football Matches</h1>
+
+<div>
+  <h2>Search Teams</h2>
+  <%= form_with url: teams_path, method: :get, local: true do %>
+    <%= label_tag :query, "Search for a team:" %>
+    <%= text_field_tag :query, params[:query] %>
+    <%= submit_tag "Search" %>
+  <% end %>
+</div>
+
+<div>
+  <h2>Leagues</h2>
+  <ul>
+    <% League.all.each do |league| %>
+      <li>
+        <%= link_to league.name, league_path(league) %>
+      </li>
+    <% end %>
+  </ul>
+</div>

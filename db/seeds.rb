@@ -35,7 +35,7 @@ teams = []
   team_name = Faker::Sports::Football.team
   team = Team.create(name: team_name)
 
-  # Create a unique coach for each team
+  # Creates a unique coach for each team
   coach_name = Faker::Sports::Football.coach
   coach = Coach.create(name: coach_name, team: team)
 
@@ -45,10 +45,10 @@ teams = []
     position = positions.sample # Pick a random position
 
     # Create the player and associate with the team and position
-    Player.create(name: player_name, team: team, position: position, coach_id: coach.id) # Set coach_id directly here
+    Player.create(name: player_name, team: team, position: position, coach_id: coach.id)
   end
 
   teams << team
 end
 
-puts "#{teams.size} teams created!"
+puts "#{teams.size} teams created! yippeee"

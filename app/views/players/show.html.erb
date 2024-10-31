@@ -1,5 +1,5 @@
 <h1><%= @player.name %></h1>
 
 <p>Position: <%= @player.position.name %></p>
-<p>Team: <%= @player.team.name %></p>
-<p>Coach: <%= @player.coach.name %></p>
+<p>Team: <%= link_to @player.team.name, team_path(@player.team) if @player.team %></p>
+<p>Coach: <%= link_to @player.coach.name, coach_path(@player.coach) if @player.coach %></p>

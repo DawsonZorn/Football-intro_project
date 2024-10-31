@@ -1,6 +1,6 @@
 <h1>Players</h1>
 
-<%= form_with(url: search_path, method: :get, local: true) do %>
+<%= form_with(url: search_players_path, method: :get, local: true) do %>
   <%= label_tag :query, "Search Players:" %>
   <%= text_field_tag :query, params[:query] %>
   <%= submit_tag "Search" %>

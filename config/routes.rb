@@ -1,14 +1,15 @@
 Rails.application.routes.draw do
-  root "home#index" # Assuming you have a home controller
+  root "home#index"
+  resources :players do
+    collection do
+      get "search", to: "players#search" # add search route
+    end
+  end
+  resources :teams
+  resources :coaches
+  resources :competitions
+  resources :positions
 
-  resources :players, only: [ :index, :show ]
-  resources :teams, only: [ :index, :show ]
-  resources :coaches, only: [ :index, :show ]
-  resources :competitions, only: [ :index, :show ]
-  resources :positions, only: [ :index, :show ]
-
-  # Add search route
-  get "search", to: "players#search"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

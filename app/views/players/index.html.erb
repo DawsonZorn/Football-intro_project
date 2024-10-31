@@ -12,6 +12,12 @@
 <%= form_with(url: search_players_path, method: :get, local: true) do %>
   <%= label_tag :query, "Search Players:" %>
   <%= text_field_tag :query, params[:query] %>
+  <%= label_tag :team_id, "Select Team:" %>
+  <%= select_tag :team_id, options_from_collection_for_select(@teams, :id, :name, params[:team_id]), include_blank: true %>
+
+  <%= label_tag :position_id, "Select Position:" %>
+  <%= select_tag :position_id, options_from_collection_for_select(@positions, :id, :name, params[:position_id]), include_blank: true %>
+
   <%= submit_tag "Search" , class: 'btn btn-primary mt-2'%>
 <% end %>
 

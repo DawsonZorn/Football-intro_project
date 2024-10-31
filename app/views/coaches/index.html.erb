@@ -1,19 +1,19 @@
 <h1>Coaches</h1>
 
-<ul>
+<ul class="list-group">
   <% @coaches.each do |coach| %>
-    <li>
+    <li class="list-group-item">
       <%= link_to coach.name, coach_path(coach) %>
       - Team: <%= coach.team.name %>
     </li>
   <% end %>
 </ul>
 
-<ul>
-  <li>
+<ul class="list-group">
+  <li class="list-group-item">
     <%= link_to 'About', about_path %>
   </li>
-  <li>
+  <li class="list-group-item">
     <%= link_to 'Home', root_path %>
   </li>
 </ul>

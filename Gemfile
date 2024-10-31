@@ -21,7 +21,7 @@ gem "jbuilder"
 
 gem "httparty" # used to make http requests from the github API
 gem "faker"
-
+gem "bootstrap"
 gem "kaminari"
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"

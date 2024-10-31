@@ -1,21 +1,15 @@
 <h1>Teams</h1>
 
-<ul>
+<ul class="list-group">
   <% @teams.each do |team| %>
-    <li>
+    <li class="list-group-item">
       <%= link_to team.name, team_path(team) %>
-      <ul>
-        <li>Coach: <%= team.coach.name %></li>
-        <li>Players:</li>
-        <ul>
+      <ul class="list-group">
+        <li class="list-group-item">Coach: <%= team.coach.name %></li>
+        <li class="list-group-item">Players:</li>
+        <ul class="list-group">
           <% team.players.each do |player| %>
-            <li><%= player.name %></li>
-          <% end %>
-        </ul>
-        <li>Competitions:</li>
-        <ul>
-          <% team.competitions.each do |competition| %>
-            <li><%= competition.name %></li>
+            <li class="list-group-item"><%= player.name %></li>
           <% end %>
         </ul>
       </ul>
@@ -23,13 +17,17 @@
   <% end %>
 </ul>
 
-<ul>
-  <li>
+<ul class="list-group">
+  <li class="list-group-item">
     <%= link_to 'About', about_path %>
   </li>
-  <li>
+  <li class="list-group-item">
     <%= link_to 'Home', root_path %>
   </li>
 </ul>
 
+<ul class="list-group">
+<li class="list-group-item">
 <%= paginate @teams %>
+</li>
+</ul>
